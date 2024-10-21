@@ -1,7 +1,9 @@
 import 'package:amity_nt/amity/app/config/router/routes_name.dart';
 import 'package:amity_nt/amity/app/core/constant/app_image_constant.dart';
 import 'package:amity_nt/amity/app/core/constant/app_textstyle_constant.dart';
+import 'package:amity_nt/amity/app/core/utils/utility.dart';
 import 'package:amity_nt/amity/features/presentation/controller/login_screen_controller.dart';
+import 'package:amity_nt/amity/features/presentation/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_size/flutter_size.dart';
@@ -23,20 +25,21 @@ class LoginScreenPage extends StatelessWidget {
               children: [
                 Image.asset(
                   AppImageConstant.appBackgroundImage,
-                  height: context.deviceHeight,
+                  height: 360,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: const EdgeInsets.only(top: 95),
                   child: Image.asset(
                     AppImageConstant.appLogo,
+                    height: 150,
                   ),
                 ),
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 200,
+                  top: 322,
                   child: Container(
                     alignment: Alignment.center,
                     decoration: const BoxDecoration(
@@ -47,192 +50,119 @@ class LoginScreenPage extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 35),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
-                            height: 5,
+                            height: 10,
                           ),
                           const Text(
                             'Login to access the app',
                             style: TextStyle(
                               color: Color(0xFF000000),
-                              fontSize: 17,
+                              fontSize: 22,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(
-                            height: 2.5,
+                            height: 25,
                           ),
-                          const Text(
-                            'Username',
-                            style: TextStyle(
-                              color: Color(0xFF000000),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 1.5,
-                          ),
-                          TextFormField(
-                            validator: 'Username'.fieldValidator,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            controller: loginScreenController.emailController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                  color: loginScreenController
-                                          .emailError.isNotEmpty
-                                      ? Colors.red
-                                      : const Color(0xFFC7C7C8),
-                                  width: 1,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.all(10),
-                              hintText: "Username",
-                              hintStyle: const TextStyle(
-                                color: Color(0xFFC7C7C8),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            onChanged: loginScreenController.validateEmail,
-                            // textInputAction: TextInputAction.next,
-                          ),
-                          if (loginScreenController.emailError.isNotEmpty)
-                            Column(
-                              children: [
-                                const SizedBox(
-                                  height: 1.5,
-                                ),
-                                Text(
-                                  loginScreenController.emailError.value,
-                                  style: AppTextstyleConstant.red_10_600,
-                                ),
-                              ],
-                            ),
-                          const SizedBox(
-                            height: 2.5,
-                          ),
-                          const Text(
-                            'Password',
-                            style: TextStyle(
-                              color: Color(0xFF000000),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 1.5,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFFFFFF),
-                              border: Border.all(
-                                color: loginScreenController
-                                        .passwordError.isNotEmpty
-                                    ? Colors.red
-                                    : const Color(0xFFC7C7C8),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: TextFormField(
-                              obscureText:
-                                  loginScreenController.isObscure.value,
-                              controller:
-                                  loginScreenController.passwordController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: const EdgeInsets.only(
-                                  top: 12,
-                                  left: 10,
-                                ),
-                                hintText: "**********",
-                                hintStyle: const TextStyle(
-                                  color: Color(0xFFC7C7C8),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    loginScreenController.isObscure.value
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
+                          Form(
+                              key: loginScreenController.formkey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomTextForm(
+                                    textInputAction: TextInputAction.next,
+                                    validator: (value) => loginScreenController
+                                        .validateEmail(value),
+                                    controller:
+                                        loginScreenController.emailController,
+                                    hintText: "Username",
+                                    text: "Username",
                                   ),
-                                  onPressed: () {
-                                    loginScreenController.toggleObscure();
-                                  },
-                                ),
-                              ),
-                              onChanged: loginScreenController.validatePassword,
-                              textInputAction: TextInputAction.done,
-                            ),
-                          ),
-                          if (loginScreenController.passwordError.isNotEmpty)
-                            Column(
-                              children: [
-                                const SizedBox(
-                                  height: 1.5,
-                                ),
-                                Text(
-                                  loginScreenController.passwordError.value,
-                                  style: AppTextstyleConstant.red_10_600,
-                                ),
-                              ],
-                            ),
-                          const SizedBox(
-                            height: 2.5,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              bool isValid =
-                                  loginScreenController.validateLogin();
-                              if (isValid) {
-                                loginScreenController.loginBottonTapped();
-                              }
-                            },
-                            child: Container(
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF988363),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
+                                  const SizedBox(
+                                    height: 15,
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 3,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.forgotPassword);
-                            },
-                            child: const Center(
-                              child: Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                  color: Color(0xFF000000),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                                  Obx(
+                                    () => CustomTextForm(
+                                      textInputAction: TextInputAction.done,
+                                      validator: (value) =>
+                                          loginScreenController
+                                              .validatePassword(value),
+                                      controller: loginScreenController
+                                          .passwordController,
+                                      hintText: "*********",
+                                      text: "Password",
+                                      obscureText:
+                                          loginScreenController.isObscure.value,
+                                      icon: IconButton(
+                                        icon: Icon(
+                                          loginScreenController.isObscure.value
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                        ),
+                                        onPressed: () {
+                                          loginScreenController.toggleObscure();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (loginScreenController
+                                          .formkey.currentState!
+                                          .validate()) {
+                                        loginScreenController
+                                            .loginBottonTapped();
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 42,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF988363),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'Login',
+                                          style: TextStyle(
+                                            color: Color(0xFFFFFFFF),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 22,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Routes.forgotPassword);
+                                    },
+                                    child: const Center(
+                                      child: Text(
+                                        'Forgot Password?',
+                                        style: TextStyle(
+                                          color: Color(0xFF000000),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ))
                         ],
                       ),
                     ),

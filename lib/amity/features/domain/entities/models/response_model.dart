@@ -5,10 +5,10 @@ class ResponseModel {
       required this.hasError,
       this.errorCode,
       this.message,
-     required this.statusCode});
+      this.statusCode});
   final String data;
   final bool hasError;
   final int? errorCode;
   final String? message;
-  final int statusCode;
+  final int? statusCode;
 }
