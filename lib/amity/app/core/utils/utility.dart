@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'package:amity_nt/amity/app/core/app_enums/app_enums.dart';
@@ -9,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 abstract class Utility {
-  
   static void showAlertDialogue(String? message, String? title,
       Function()? onPress, String? successText) async {
     await Get.dialog(CupertinoAlertDialog(
@@ -33,6 +31,7 @@ abstract class Utility {
   static void closeDialog() {
     if (Get.isDialogOpen ?? false) Get.back<void>();
   }
+
   //show Message
   static void showMessage(String? message, MessageType messageType,
       Function()? onTap, String actionName) {
@@ -126,19 +125,17 @@ abstract class Utility {
         fontSize: Platform.isAndroid || Platform.isIOS ? 16.0 : 32);
   }
 
- 
-
   //get time format
   static String getTimeFormat(int value) {
-    int  h, m, s;
+    int h, m, s;
 
-     h = value ~/ 3600;
+    h = value ~/ 3600;
 
-    m = ((value - h  * 3600)) ~/ 60;
+    m = ((value - h * 3600)) ~/ 60;
 
-    s = value - ( h  * 3600) - (m * 60);
+    s = value - (h * 3600) - (m * 60);
 
-    String hourLeft =  h.toString().length < 2 ? "0  " : h .toString();
+    String hourLeft = h.toString().length < 2 ? "0  " : h.toString();
 
     String minuteLeft = m.toString().length < 2 ? "0$m" : m.toString();
 
@@ -148,7 +145,4 @@ abstract class Utility {
 
     return result;
   }
-
-  
 }
-

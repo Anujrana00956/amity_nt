@@ -1,12 +1,9 @@
 import 'package:amity_nt/amity/app/config/router/routes_name.dart';
 import 'package:amity_nt/amity/app/core/constant/app_image_constant.dart';
-import 'package:amity_nt/amity/app/core/constant/app_textstyle_constant.dart';
-import 'package:amity_nt/amity/app/core/utils/utility.dart';
 import 'package:amity_nt/amity/features/presentation/controller/login_screen_controller.dart';
 import 'package:amity_nt/amity/features/presentation/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_size/flutter_size.dart';
 
 class LoginScreenPage extends StatelessWidget {
   const LoginScreenPage({super.key});

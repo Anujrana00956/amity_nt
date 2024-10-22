@@ -21,18 +21,18 @@ class ManageJobsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 32,
+      height: 270,
       width: double.infinity,
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: const Color(0xFFC7C7C8),
-          width: 1,
+          width: 1.4,
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           children: [
             Row(
@@ -42,19 +42,19 @@ class ManageJobsWidget extends StatelessWidget {
                   'Client',
                   style: TextStyle(
                     color: Color(0xFF988363),
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(
-                  width: 14,
+                  width: 58,
                 ),
                 Expanded(
                   child: Text(
                     client,
                     style: const TextStyle(
                       color: Color(0xFF1E2964),
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -62,7 +62,7 @@ class ManageJobsWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 1.5,
+              height: 12,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,19 +71,19 @@ class ManageJobsWidget extends StatelessWidget {
                   'Job Name',
                   style: TextStyle(
                     color: Color(0xFF988363),
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(
-                  width: 6,
+                  width: 25,
                 ),
                 Expanded(
                   child: Text(
                     jobname,
                     style: const TextStyle(
                       color: Color(0xFF1E2964),
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -91,7 +91,7 @@ class ManageJobsWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 1.5,
+              height: 12,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,101 +100,97 @@ class ManageJobsWidget extends StatelessWidget {
                   'Status',
                   style: TextStyle(
                     color: Color(0xFF988363),
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(
-                  width: 13,
+                  width: 55,
                 ),
                 Text(
                   status,
                   style: const TextStyle(
                     color: Color(0xFFA3CA3E),
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 2,
+              height: 15,
             ),
             GestureDetector(
               onTap: onTap,
               child: Container(
-                height: 5,
+                height: 42,
                 decoration: BoxDecoration(
                     color: const Color(0xFFA3CA3E),
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(12)),
                 child: const Center(
                   child: Text(
                     'View Job Details',
                     style: TextStyle(
                         color: Color(0xFFFFFFFF),
-                        fontSize: 10,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 1.5,
+              height: 12,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: attendanceTap,
-                  child: Container(
-                    height: 5,
-                    width: 36,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: const Color(0xFFC7C7C8),
-                        width: 1,
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Daily Attendance',
-                        style: TextStyle(
-                            color: Color(0xFF7A7A7A),
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600),
-                      ),
+                  child: const FittedBox(
+                    child: DailyAttendaceAndHistory(
+                      text: 'Daily Attendance',
                     ),
                   ),
                 ),
                 GestureDetector(
-                  onTap: attendanceHistory,
-                  child: Container(
-                    height: 5,
-                    width: 36,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: const Color(0xFFC7C7C8),
-                        width: 1,
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Attendance History',
-                        style: TextStyle(
-                            color: Color(0xFF7A7A7A),
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ),
-                ),
+                    onTap: attendanceHistory,
+                    child: const DailyAttendaceAndHistory(
+                        text: "Attendance History")),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class DailyAttendaceAndHistory extends StatelessWidget {
+  const DailyAttendaceAndHistory({
+    super.key,
+    required this.text,
+  });
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      height: 42,
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFFC7C7C8),
+          width: 1.5,
+        ),
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: const TextStyle(
+              color: Color(0xFF7A7A7A),
+              fontSize: 12,
+              fontWeight: FontWeight.w700),
         ),
       ),
     );

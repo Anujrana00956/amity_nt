@@ -4,21 +4,21 @@ import 'dart:io';
 import 'package:amity_nt/amity/app/core/app_enums/app_enums.dart';
 import 'package:amity_nt/amity/app/core/utils/connectivity.dart';
 import 'package:amity_nt/amity/app/core/utils/extensions/extensions.dart';
+import 'package:amity_nt/amity/app/core/utils/utility.dart';
+import 'package:amity_nt/amity/features/data/data_constant.dart';
 import 'package:amity_nt/amity/features/data/data_sources/local/api_headers.dart';
 import 'package:amity_nt/amity/features/domain/entities/models/response_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiRequest {
-  static const String baseUrl = "DataConstants.baseUrl";
+  static const String baseUrl = DataConstants.baseUrl;
 
- static Future<ResponseModel> makeRequest({
-     required MethodRequest request,
-     required String url, 
-      bool? isLoading,
+  static Future<ResponseModel> makeRequest(bool isLoading,
+      {required MethodRequest request,
+      required String url,
       dynamic data,
       Map<String, String>? headers,
       Map<String, String> files = const {}}) async {
-
     if (ConnectivityService.isConnected.value) {
       final Uri uri = Uri.parse(baseUrl + url);
       late http.Response response;
@@ -29,6 +29,7 @@ class ApiRequest {
             response = await http
                 .get(uri, headers: headers ?? ApiHeaders().headers)
                 .timeout(const Duration(seconds: 10));
+            Utility.closeDialog();
             break;
           }
         case MethodRequest.post:
@@ -93,13 +94,11 @@ class ApiRequest {
           .logPrint;
 
       return returnResponse(response);
-    }
-    else{
-         "--> 1. -->".logPrint;
+    } else {
+      "--> 1. -->".logPrint;
       throw const SocketException.closed();
     }
   }
-  
 }
 
 ResponseModel returnResponse(http.Response response) {

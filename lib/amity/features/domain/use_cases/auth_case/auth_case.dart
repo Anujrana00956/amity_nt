@@ -3,19 +3,9 @@ import 'package:amity_nt/amity/features/domain/entities/models/login_response.da
 import 'package:amity_nt/amity/features/domain/entities/models/response_model.dart';
 
 class AuthCase {
-  
-  static Future<LoginResponse> authLogin({
-    required String email,
-    required String password,
-    required String deviceToken,
-  }) async {
-    return await Repository.authLogin(
-      email: email,
-      password: password,
-      deviceToken: deviceToken,
-    );
-  }
+    final Repository _repository = Repository();
 
+  
   // Logout Auth Cases
 //  static Future<ResponseModel> logout() async {
 //     return await Repository.logout();

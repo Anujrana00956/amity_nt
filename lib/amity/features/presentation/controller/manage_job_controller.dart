@@ -1,6 +1,10 @@
+import 'dart:isolate';
+
 import 'package:amity_nt/amity/app/core/app_enums/app_enums.dart';
+import 'package:amity_nt/amity/app/core/utils/extensions/extensions.dart';
 import 'package:amity_nt/amity/app/core/utils/utility.dart';
 import 'package:amity_nt/amity/features/domain/entities/models/job_list_response.dart';
+import 'package:amity_nt/amity/features/domain/repositories/repo.dart';
 import 'package:amity_nt/amity/features/domain/use_cases/screen_usecase/screen_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,10 +16,11 @@ import 'package:intl/intl.dart';
 class ManageJobsController extends GetxController {
   // ManageJobsController(this._manageJobsPresenter);
   // final ManageJobsPresenter _manageJobsPresenter;
-  ManageJobsController get instance => Get.find();
-  final ScreenUsecase _screenUsecase = ScreenUsecase();
+  // ManageJobsController get instance => Get.find();
+
+  final _repository = Repository();
   RxString startDate = 'From date'.obs;
-  RxString endDate = 'To date'.obs;
+  RxString endDate = 'End date'.obs;
 
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
@@ -104,13 +109,28 @@ class ManageJobsController extends GetxController {
   String manageJobsErrorText = '';
 
   Future<void> getUserProfile() async {
-    await _screenUsecase.getUserProfile(isLoading: false);
+    await _repository.getUserProfile(isLoading: false);
   }
 
 // Get DropDown API
-  void getDropDownData() async {
-    await ScreenUsecase.getDropdown();
+  void getDropDownData(SendPort sendport) async {
+    await _repository.getDropdown();
   }
+
+  Future<void> Isolatecalling() async {
+    final ReceivePort receivePort = ReceivePort();
+
+    Isolate.spawn(getDropDownData, receivePort.sendPort);
+    var anuj = await receivePort.first;
+    "$anuj this is a isolate".logPrint;
+  }
+  // Future<void> isolatecalling() async {
+  //   final ReceivePort receivePort = ReceivePort();
+
+  //   Isolate.spawn(getUserProfile, receivePort.sendPort);
+  //   var anuj = await receivePort.first;
+  //   "$anuj this is a isolate".logPrint;
+  // }
 
   /// Manage jobs api accepted
   Future<void> manageJobs({
@@ -121,21 +141,13 @@ class ManageJobsController extends GetxController {
   }) async {
     manageJobsList.clear();
     manageJobsErrorText = '';
-
-    var response = await _screenUsecase.manageJobs(
+    await _repository.manageJobs(
       fromDate: fromDate,
       toDate: toDate,
       isLoading: isLoading,
       status: status,
     );
-    if (response.status == true) {
-      if (response.notificationList.isNotEmpty) {
-        manageJobsList = response.notificationList;
-      } else {
-        manageJobsErrorText = 'No jobs applied yet';
-      }
-      Utility.closeDialog();
-    }
+
     update();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:amity_nt/amity/app/config/router/routes_name.dart';
 import 'package:amity_nt/amity/app/core/utils/utility.dart';
 import 'package:amity_nt/amity/app/global_constant.dart';
+import 'package:amity_nt/amity/features/domain/repositories/repo.dart';
 import 'package:amity_nt/amity/features/domain/use_cases/auth_case/auth_case.dart';
 import 'package:amity_nt/amity/features/presentation/controller/tab_screen_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:get/get.dart';
 
 class LoginScreenController extends GetxController {
   static LoginScreenController get instance => Get.find();
+  final _authCase = AuthCase();
+  final _repository = Repository();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -45,17 +48,10 @@ class LoginScreenController extends GetxController {
 
   // Login API
   loginBottonTapped() async {
-    // var response = await AuthCase.authLogin(
-    //   email: emailController.text,
-    //   password: passwordController.text,
-    //   deviceToken: AppConstants.fcmToken.isEmpty ? '' : AppConstants.fcmToken,
-    // );
-
-    // if (response.status == true) {
-    Get.offNamed(Routes.tabScreen);
-    Get.find<TabScreenController>().changeTab(0);
-    // } else {
-    //   Utility.showToast('Invalid Username or Password');
-    // }
+    await _repository.authLogin(
+      email: emailController.text,
+      password: passwordController.text,
+      deviceToken: AppConstants.fcmToken.isEmpty ? '' : AppConstants.fcmToken,
+    );
   }
 }

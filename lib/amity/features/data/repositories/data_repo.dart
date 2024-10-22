@@ -27,6 +27,7 @@ class DataRepository {
   }) async {
     print('the connectHelper with error $email =>>$password');
     return await ConnectHelper.authLogin(
+      
       email: email,
       password: password,
       deviceToken: deviceToken,
@@ -34,9 +35,9 @@ class DataRepository {
   }
 
 // Logout Data Repository
-  Future<ResponseModel> logout() async {
-    return await ConnectHelper.logout();
-  }
+  // Future<ResponseModel> logout() async {
+  //   return await ConnectHelper.logout();
+  // }
 
   //  Change Password Data Repository
   Future<ResponseModel> changePassword(
@@ -73,10 +74,10 @@ class DataRepository {
         isLoading: isLoading,
       );
 
-  // // Get Dropdown Data Repository
- static Future<ResponseModel> getDropdown() async {
-    return await ConnectHelper.getDropdown();
-  }
+//   // // Get Dropdown Data Repository
+//  static Future<ResponseModel> getDropdown() async {
+//     return await ConnectHelper.getDropdown();
+//   }
 
   // // Edit Profile Data Repository
   // Future<ResponseModel> editProfile({
@@ -179,21 +180,21 @@ class DataRepository {
   //   );
   // }
 
-  Future<ResponseModel> manageJobs({
-    required String token,
-    required String fromDate,
-    required String toDate,
-    required bool isLoading,
-    required String status,
-  }) async {
-    return await ConnectHelper.manageJobs(
-      token: token,
-      fromDate: fromDate,
-      toDate: toDate,
-      isLoading: isLoading,
-      status: status,
-    );
-  }
+  // Future<ResponseModel> manageJobs({
+  //   required String token,
+  //   required String fromDate,
+  //   required String toDate,
+  //   required bool isLoading,
+  //   required String status,
+  // }) async {
+  //   return await .manageJobs(
+  //     token: token,
+  //     fromDate: fromDate,
+  //     toDate: toDate,
+  //     isLoading: isLoading,
+  //     status: status,
+  //   );
+  // }
 
   // Future<ResponseModel> getJobCalendar(
   //     {required String token,

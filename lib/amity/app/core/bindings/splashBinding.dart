@@ -1,6 +1,5 @@
 import 'package:amity_nt/amity/app/config/theme/app_theme.dart';
-import 'package:amity_nt/amity/features/domain/device_repo.dart';
-import 'package:amity_nt/amity/features/presentation/controller/forgot_password_controller.dart';
+import 'package:amity_nt/amity/features/presentation/controller/account_screen_controller.dart';
 import 'package:amity_nt/amity/features/presentation/controller/login_screen_controller.dart';
 import 'package:amity_nt/amity/features/presentation/controller/manage_job_controller.dart';
 import 'package:amity_nt/amity/features/presentation/controller/splash_screen_controller.dart';
@@ -14,8 +13,10 @@ class Splashbinding extends Bindings {
     Get.put(SplashScreenController());
     Get.put(ThemeController());
     Get.lazyPut(() => LoginScreenController());
-    Get.lazyPut(() => DeviceRepository());
+    // Get.lazyPut(() => DeviceRepository());
     Get.lazyPut(() => ManageJobsController());
     Get.lazyPut(() => TabScreenController());
+    // Get.lazyPut(() => ForgotPasswordController());
+    // Get.lazyPut(() => AccountScreenController());
   }
 }

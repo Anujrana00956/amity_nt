@@ -1,5 +1,7 @@
 import 'package:amity_nt/amity/app/config/router/routes_name.dart';
+import 'package:amity_nt/amity/app/core/constant/app_image_constant.dart';
 import 'package:amity_nt/amity/features/presentation/controller/manage_job_controller.dart';
+import 'package:amity_nt/amity/features/presentation/widgets/from_to_end_date.dart';
 import 'package:amity_nt/amity/features/presentation/widgets/manage_job_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,12 +17,12 @@ class ManageJobsPage extends GetView<ManageJobsController> {
         // backgroundColor: const Color(0xFFFEFBF5),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 3,
+                  height: 30,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,7 +31,7 @@ class ManageJobsPage extends GetView<ManageJobsController> {
                       'Manage Jobs',
                       style: TextStyle(
                           color: Color(0xFF000000),
-                          fontSize: 28,
+                          fontSize: 35,
                           fontWeight: FontWeight.w800),
                     ),
                     GestureDetector(
@@ -37,20 +39,20 @@ class ManageJobsPage extends GetView<ManageJobsController> {
                           Get.toNamed(Routes.jobCalendarScreen);
                         },
                         child: Image.asset(
-                          'assets/images/screen_image/Vectorr.png',
+                          AppImageConstant.manageJobCalander,
                           scale: 2.7,
                         )),
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 const Text(
                   'Select Date Range',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Color(0xFF000000),
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(
@@ -61,42 +63,14 @@ class ManageJobsPage extends GetView<ManageJobsController> {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          manageJobsController.selectDate(context, true);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color(0xFFC7C7C8),
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                manageJobsController.startDate.value,
-                                style: const TextStyle(
-                                    color: Color(0xFF000000),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Image.asset(
-                                'assets/images/screen_image/Vectorr.png',
-                                height: 4,
-                                width: 4,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+                          onTap: () {
+                            manageJobsController.selectDate(context, true);
+                          },
+                          child: FromAndToDate(
+                              textDate: manageJobsController.startDate.value)),
                     ),
                     const SizedBox(
-                      width: 2,
+                      width: 20,
                     ),
                     Expanded(
                       child: GestureDetector(
@@ -104,34 +78,8 @@ class ManageJobsPage extends GetView<ManageJobsController> {
                           controller.update();
                           manageJobsController.selectDate(context, false);
                         },
-                        child: Container(
-                          height: 50,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color(0xFFC7C7C8),
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                manageJobsController.endDate.value,
-                                style: const TextStyle(
-                                    color: Color(0xFF000000),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Image.asset(
-                                'assets/images/screen_image/Vectorr.png',
-                                height: 4,
-                                width: 4,
-                              )
-                            ],
-                          ),
+                        child: FromAndToDate(
+                          textDate: manageJobsController.endDate.value,
                         ),
                       ),
                     ),
@@ -163,7 +111,7 @@ class ManageJobsPage extends GetView<ManageJobsController> {
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(
-                                height: 2,
+                                height: 13,
                               ),
                               Column(
                                 children: [
